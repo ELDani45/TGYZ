@@ -1,0 +1,169 @@
+/* Contenedor horizontal */
+.app-wrapper {
+  display: flex;
+}
+
+/* Estilos del Menú */
+.nav-open {
+  width: 170px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  transition: 0.8s;
+  background: #202020;
+  border-right: 1px solid gray;
+}
+
+.nav-closed {
+
+  width: 80px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  transition: 0.8s;
+  background: #202020;
+  
+}
+
+.main-content {
+  flex-grow: 1;
+  transition: margin-left 0.8s ease;
+  min-height: 100vh;
+  
+}
+
+.pushed {
+  margin-left: 185px;
+}
+
+.collapsed {
+  margin-left: 120px; 
+}
+/* NAVBAR */
+.logo {
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap; 
+    overflow: hidden;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
+    
+    transition: 
+        max-width 2s cubic-bezier(0.4, 0, 0.2, 1), 
+        margin-left 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+        font-size 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.4s ease;
+}
+
+/* ESTADO CERRADO */
+/* NOTA: estado pequeño */
+.siglas {
+    max-width: 50px;
+    margin-left: 10px;
+    font-size: 21px;
+}
+
+/* ESTADO ABIERTO */
+/* NOTA: estado GRANDE */
+.no-siglas {
+    max-width: 220px; 
+    margin-left: 20px;
+    opacity: 1;
+    font-size: 28px;
+
+}
+/* Links de navegacion */
+
+ul{
+    width: 100%;
+}
+.link-navegation{
+    text-decoration-line: none;
+    font-size: 20px;
+    color: rgb(241, 182, 71);
+    padding: 6px;
+    transition: 1s;
+    font-weight: 900;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+.link-navegation-small{
+    height: 46px;
+    text-decoration-line: none;
+    font-size: 24px;
+    color: rgba(241, 182, 71, 0.514);
+    padding: 4px;
+    transition: 1s;
+    font-weight: bold;
+    max-width: 70px;
+    transition: max-width 2s cubic-bezier(0.4, 0, 0.2, 1);
+
+}
+.box-link{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: rgba(160, 158, 158, 0.062);
+    opacity: 1.8;
+    border-top:1px solid #202020;
+    border-bottom:1px solid #202020;
+}
+
+.box-link:hover{
+    background-color: rgba(160, 158, 158, 0.158);
+    transition: 0.5s;
+}
+.imagen-home{
+    width: 25px;
+    height: 25px;
+    transition: 3s;
+}
+.nav-item-content {
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  position: relative;
+  width: 100%;
+  height: 34px; 
+}
+
+
+.nav-icon {
+  width: 24px;
+  height: 38px;
+  flex-shrink: 0;
+  transition: all 0.8s cubic-bezier(0.9, 0.9, 0.2, 1);
+  z-index: 2;
+}
+
+/* Efecto al abrir: el icono se desvanece y se encoge */
+.nav-open .nav-icon {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* 1. BASE: Define cómo es el texto y su transición */
+.nav-label {
+  position: absolute; 
+  white-space: nowrap;
+  font-weight: 400;
+  color: rgb(241, 182, 71);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 2. ESTADO CERRADO: Aquí le dices HACIA DÓNDE se va */
+.nav-closed .nav-label {
+  opacity: 0;
+  transform: translateX(-80px); 
+  pointer-events: none;        /* Evita clics en lo invisible */
+  
+}
+
+/* 3. ESTADO ABIERTO: Aquí es donde "llega" */
+.nav-open .nav-label {
+  opacity: 1;
+  transform: translateX(0);    /* Vuelve a su sitio */
+  pointer-events: auto;
+}
+
