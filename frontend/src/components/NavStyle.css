@@ -137,13 +137,11 @@ ul{
   z-index: 2;
 }
 
-/* Efecto al abrir: el icono se desvanece y se encoge */
 .nav-open .nav-icon {
   opacity: 0;
   visibility: hidden;
 }
 
-/* 1. BASE: Define cómo es el texto y su transición */
 .nav-label {
   position: absolute; 
   white-space: nowrap;
@@ -152,18 +150,15 @@ ul{
   transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 2. ESTADO CERRADO: Aquí le dices HACIA DÓNDE se va */
 .nav-closed .nav-label {
   opacity: 0;
   transform: translateX(-80px); 
-  pointer-events: none;        /* Evita clics en lo invisible */
-  
+  pointer-events: none;        
 }
 
-/* 3. ESTADO ABIERTO: Aquí es donde "llega" */
 .nav-open .nav-label {
   opacity: 1;
-  transform: translateX(0);    /* Vuelve a su sitio */
+  transform: translateX(0); 
   pointer-events: auto;
 }
 
