@@ -5,24 +5,23 @@
 
 /* Estilos del Menú */
 .nav-open {
-  width: 170px;
+  width: 210px;
   height: 100vh;
-  position: fixed;
   left: 0;
   transition: 0.8s;
   background: #202020;
   border-right: 1px solid gray;
+  position: fixed;
 }
 
 .nav-closed {
-
   width: 80px;
   height: 100vh;
   position: fixed;
   left: 0;
   transition: 0.8s;
   background: #202020;
-  
+
 }
 
 .main-content {
@@ -68,7 +67,7 @@
 /* NOTA: estado GRANDE */
 .no-siglas {
     max-width: 220px; 
-    margin-left: 20px;
+    margin-left: 27px;
     opacity: 1;
     font-size: 28px;
 
@@ -77,6 +76,7 @@
 
 ul{
     width: 100%;
+
 }
 .link-navegation{
     text-decoration-line: none;
@@ -160,5 +160,12 @@ ul{
   opacity: 1;
   transform: translateX(0); 
   pointer-events: auto;
+}
+
+.bottom-links{
+  position: absolute;
+  bottom: 20px;     
+  left: 0;
+  right: 0;   
 }
 

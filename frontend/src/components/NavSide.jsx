@@ -1,4 +1,6 @@
 import { FaPuzzlePiece } from "react-icons/fa6";
+import { FaUserCircle } from "react-icons/fa";
+import { GrNotes } from "react-icons/gr";
 import { HiFlag } from "react-icons/hi2";
 import { GoHome } from "react-icons/go";
 import { Link } from 'react-router-dom'
@@ -38,6 +40,25 @@ export function NavSide({isOpen, setIsOpen}) {
                 <span className="nav-label">Ejercisios</span>
               </div>
               </Link>
+            </div>
+            {/* inicio y registro de usuario */}
+            <div className="bottom-links">
+              <div className="box-link">
+                <Link className={`${isOpen?'link-navegation':'link-navegation-small'}`} to={'/'}>
+                <div className="nav-item-content">
+                    <FaUserCircle  className="nav-icon"/>
+                    <span className="nav-label">Iniciar sesión</span>
+                </div>
+                </Link>
+              </div>
+              <div className="box-link">
+                <Link className={`${isOpen?'link-navegation':'link-navegation-small'}`} to={'/'}>
+                <div className="nav-item-content">
+                    <GrNotes  className="nav-icon"/>
+                    <span className="nav-label">Registrarse</span>
+                </div>
+                </Link>
+              </div>
             </div>
         </ul>
     </div>
