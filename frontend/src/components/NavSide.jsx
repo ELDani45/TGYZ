@@ -41,25 +41,6 @@ export function NavSide({isOpen, setIsOpen}) {
               </div>
               </Link>
             </div>
-            {/* inicio y registro de usuario */}
-            <div className="bottom-links">
-              <div className="box-link">
-                <Link className={`${isOpen?'link-navegation':'link-navegation-small'}`} to={'/'}>
-                <div className="nav-item-content">
-                    <FaUserCircle  className="nav-icon"/>
-                    <span className="nav-label">Iniciar sesión</span>
-                </div>
-                </Link>
-              </div>
-              <div className="box-link">
-                <Link className={`${isOpen?'link-navegation':'link-navegation-small'}`} to={'/'}>
-                <div className="nav-item-content">
-                    <GrNotes  className="nav-icon"/>
-                    <span className="nav-label">Registrarse</span>
-                </div>
-                </Link>
-              </div>
-            </div>
         </ul>
     </div>
   )}
