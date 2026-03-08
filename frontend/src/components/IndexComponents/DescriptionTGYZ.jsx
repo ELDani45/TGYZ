@@ -1,13 +1,16 @@
 import { GrServicePlay } from "react-icons/gr";
+import { useNavigate } from "react-router-dom";
 import imageTogyzqunalaq from '../../assets/togyzqumalaq_board.png'
 import './DescriptionTGYZ.css'
 
 export function DescriptionTGYZ() {
+  const navigation = useNavigate();
+
   return (
     <div className="box-main-description">
       <div className="div-center-divs">
         
-        {/* 1. Bloque de Autenticación (Ahora arriba) */}
+        
         <div className="container-buttoms">
           <div>
             <button className="boton-login">
@@ -15,7 +18,7 @@ export function DescriptionTGYZ() {
             </button>
           </div>
           <div>
-            <button className="boton-register">
+            <button onClick={ () => navigation('/register') } className="boton-register">
               Registrarse
             </button>
           </div>
