@@ -1,6 +1,5 @@
+import { useNavigate } from "react-router-dom";
 import { FaPuzzlePiece } from "react-icons/fa6";
-import { FaUserCircle } from "react-icons/fa";
-import { GrNotes } from "react-icons/gr";
 import { HiFlag } from "react-icons/hi2";
 import { GoHome } from "react-icons/go";
 import { Link } from 'react-router-dom'
@@ -8,6 +7,7 @@ import './NavStyle.css'
 
 
 export function NavSide({isOpen, setIsOpen}) {
+    const navigation = useNavigate();
     const toggleMenu = () => setIsOpen(!isOpen)
     
     const optionStyle = isOpen ? 'nav-open':'nav-closed'
@@ -19,7 +19,7 @@ export function NavSide({isOpen, setIsOpen}) {
         <ul onClick={(e) => e.stopPropagation()}>
             <div className='box-link'>
               <Link className={`${isOpen? 'link-navegation':'link-navegation-small'}`} to={'/'} >
-              <div className="nav-item-content">
+              <div onClick={() => navigation('/')} className="nav-item-content">
                 <GoHome className="nav-icon" />
                 <span className="nav-label">Inicio</span>
               </div>
