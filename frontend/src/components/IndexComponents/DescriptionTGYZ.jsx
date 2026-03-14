@@ -61,7 +61,7 @@ export function DescriptionTGYZ() {
           <p className="text-new-des">
             Aprende las reglas básicas, aperturas y tácticas de Togyzqumalaq en 5 minutos.
           </p>
-          <button className="boton-gray-new-user">
+          <button onClick={() => navigation('/beginner')} className="boton-gray-new-user">
             Empezar Lección
           </button>
         </div>
