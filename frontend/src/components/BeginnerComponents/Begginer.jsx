@@ -3,7 +3,7 @@ import { BoardTGYZ } from "../BoardTgyz/BoardTGYZ"
 export function Begginer() {
   return (
     <div>
-          <h1>Hello World!</h1>
+          <h1>TGYZ tablero</h1>
           <div>
             <BoardTGYZ />
           </div>
