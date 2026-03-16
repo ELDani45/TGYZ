@@ -31,6 +31,18 @@
     height: 230px;
     background-color: #202020;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    
+}
+.pitPainted{
+    width: 100px;
+    height: 230px;
+    background-color: #202020;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid red;
 }
 .pit:hover{
     border: 2px solid whitesmoke;
@@ -48,4 +60,8 @@
     height: 40px;
     background-color: #202020;
     margin-bottom: 10px;
+}
+.number-hole{
+    margin-top: auto;
+    text-align: center;
 }
