@@ -1,3 +1,5 @@
+// Creacion del tablero de Togyzqumalaq
+
 import { board } from "./board"
 import { useState } from "react"
 import './BoardTGYZ.css'
@@ -8,8 +10,28 @@ export function BoardTGYZ() {
   // pintar hoyo
   const [lastPit, setLastPit] = useState(null)
   
+  const [turn, seTurn] = useState('player1');
+  
+  const getPitClass = (pitPlayer, pitIndex) => {
+    // si es tuzdik 
+    const rival = pitPlayer === 'player1' ? 'player2' : 'player1'
+    if(initialBoard[rival].tuzdik === pitIndex) return 'pitTuzdik'
+    
+    // ¿es el último hoyo?
+    if(lastPit?.player === pitPlayer && lastPit?.index === pitIndex) return 'pitPainted'
+    
+    // normal
+    return 'pit'
+  }
+  
   // funcion principal de movimiento 
   const handlemove = (pit, index, player) => {
+
+
+    if(player !== turn){
+      return
+    }
+
     let realIndex = index 
     // Inversion del inidice si el jugador es el player2
     if(player == 'player2'){
@@ -69,6 +91,7 @@ export function BoardTGYZ() {
     }
 
     move(pit, realIndex, player)
+    seTurn(player === 'player1' ? 'player2' : 'player1')
     console.log(pit, realIndex, player)
   }
   return (
@@ -79,7 +102,7 @@ export function BoardTGYZ() {
         {initialBoard['player2'].pits.toReversed().map((pit, index) => {
           const indiceAlRevez = initialBoard['player2'].pits.length - 1 - index;
           return(
-            <div onClick={() => handlemove(pit, index,'player2')} className={lastPit?.player === 'player2' && lastPit?.index === indiceAlRevez ? 'pitPainted' : 'pit'} key={index}>
+            <div onClick={() => handlemove(pit, index,'player2')} className={getPitClass('player2', indiceAlRevez)} key={index}>
               {pit}
               <div className="number-hole">
                 {indiceAlRevez + 1}
@@ -100,7 +123,7 @@ export function BoardTGYZ() {
       <div className="row-pits-player1">
         {initialBoard['player1'].pits.map((pit, index) =>{
           return(
-            <div onClick={() => handlemove(pit, index, 'player1')} className={lastPit?.player === 'player1' && lastPit?.index === index ? 'pitPainted' : 'pit'} key={index}>
+            <div onClick={() => handlemove(pit, index, 'player1')} className={getPitClass('player1', index)} key={index}>
               {pit}
               <div className="number-hole">
                 {index +1}
