@@ -121,6 +121,9 @@ export function BoardTGYZ({winner, setWinner}) {
         {initialBoard['player2'].pits.toReversed().map((pit, index) => {
           const indiceAlRevez = initialBoard['player2'].pits.length - 1 - index;
           const seedTotal = initialBoard['player2'].pits[indiceAlRevez];
+          // mostrar maximo 20 semillas en el hoyo 
+          const maxVisible = 10
+          const seedsToShow = Math.min(pit, maxVisible)
           return(
             <div onClick={() => handlemove(pit, index,'player2')} className={getPitClass('player2', indiceAlRevez)} key={index}>
               <div>
@@ -129,15 +132,13 @@ export function BoardTGYZ({winner, setWinner}) {
                   {seedTotal}
                 </div>
                 {/*            //           lista                    //              */}
-                {Array.from({length: initialBoard['player2'].pits[indiceAlRevez]}, (_, i) => (
-                  //semillas 
-                  <div className="seed" key={i}>
-                    <div>
-                    {i + 1}
-                    </div>
-                  </div>
-                ))}
+                <div className="seeds-container">
+                  {Array.from({length: seedsToShow}, (_, i) => (
+                    <div className="seed" key={i} />
+                  ))}
+                </div>
               </div>
+              {/* Numero de hoyo */}
               <div className="number-hole">
                 {indiceAlRevez + 1}
               </div>
@@ -157,20 +158,21 @@ export function BoardTGYZ({winner, setWinner}) {
       <div className="row-pits-player1">
         {initialBoard['player1'].pits.map((pit, index) =>{
           const totalSeeds = initialBoard['player1'].pits[index]
+          // mostrar maximo 20 semillas en el hoyo 
+          const maxVisible = 10
+          const seedsToShow = Math.min(pit, maxVisible)
           return(
             <div onClick={() => handlemove(pit, index, 'player1')} className={getPitClass('player1', index)} key={index}>
               <div>
                 <div className="total-seeds">
                   {totalSeeds}
                 </div>
-              {Array.from({length: initialBoard['player1'].pits[index]}, (_, i) => (
-                
-                  <div className="seed" key={i}>
-                    <div>
-                    {i + 1}
-                    </div>
-                  </div>
-                ))}
+                {/*            //           lista                    //              */}
+                <div className="seeds-container">
+                  {Array.from({length: seedsToShow}, (_, i) => (
+                    <div className="seed" key={i} />
+                  ))}
+                </div>    
               </div>
               <div className="number-hole">
                 {index +1}

@@ -1,16 +1,32 @@
 .total-seeds{
-    color: gray;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  font-size: 15px;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+  z-index: 0;
 }
-.seed{
-    width: 15px;
-    height: 15px;
-    background-color: black;
-    justify-content: center;
-    
-    margin-left: 10px;
-    margin-bottom: 5px;
-    border-radius: 50%;
+.seeds-container {
+  display: grid;
+  grid-template-columns: repeat(2, 12px);
+  gap: 5px;
+  justify-content: center; 
+  row-gap: 7px;
+  column-gap: 20px;
+  margin-top: 20px;
+  margin-right: 10px;
 }
+
+.seed {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff, #c8a96e);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
 .seed > * {
     visibility: hidden;
 }
@@ -45,6 +61,8 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
+    position: relative;
+    overflow: hidden;
 }
 .pitPainted{
     width: 100px;
