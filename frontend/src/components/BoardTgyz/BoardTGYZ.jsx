@@ -2,7 +2,6 @@
 import { board } from "./board"
 import { useState } from "react"
 import './BoardTGYZ.css'
-import { BsPass } from "react-icons/bs";
 
 export function BoardTGYZ({winner, setWinner}) {
   // Estado del tablero 
@@ -17,7 +16,7 @@ export function BoardTGYZ({winner, setWinner}) {
     const rival = pitPlayer === 'player1' ? 'player2' : 'player1'
     if(initialBoard[rival].tuzdik === pitIndex) return 'pitTuzdik'
     
-    // ¿es el último hoyo?
+    // Pinta el ultimo hoyo
     if(lastPit?.player === pitPlayer && lastPit?.index === pitIndex) return 'pitPainted'
     
     // normal
@@ -121,9 +120,24 @@ export function BoardTGYZ({winner, setWinner}) {
       <div className='row-pits-player2'>
         {initialBoard['player2'].pits.toReversed().map((pit, index) => {
           const indiceAlRevez = initialBoard['player2'].pits.length - 1 - index;
+          const seedTotal = initialBoard['player2'].pits[indiceAlRevez];
           return(
             <div onClick={() => handlemove(pit, index,'player2')} className={getPitClass('player2', indiceAlRevez)} key={index}>
-              {pit}
+              <div>
+                {/* Numero total de semillas  */}
+                <div className="total-seeds">
+                  {seedTotal}
+                </div>
+                {/*            //           lista                    //              */}
+                {Array.from({length: initialBoard['player2'].pits[indiceAlRevez]}, (_, i) => (
+                  //semillas 
+                  <div className="seed" key={i}>
+                    <div>
+                    {i + 1}
+                    </div>
+                  </div>
+                ))}
+              </div>
               <div className="number-hole">
                 {indiceAlRevez + 1}
               </div>
@@ -142,10 +156,21 @@ export function BoardTGYZ({winner, setWinner}) {
       {/* fila de hoyos del jugador 1 */}
       <div className="row-pits-player1">
         {initialBoard['player1'].pits.map((pit, index) =>{
+          const totalSeeds = initialBoard['player1'].pits[index]
           return(
             <div onClick={() => handlemove(pit, index, 'player1')} className={getPitClass('player1', index)} key={index}>
-              <div className="seed">
-              {pit}
+              <div>
+                <div className="total-seeds">
+                  {totalSeeds}
+                </div>
+              {Array.from({length: initialBoard['player1'].pits[index]}, (_, i) => (
+                
+                  <div className="seed" key={i}>
+                    <div>
+                    {i + 1}
+                    </div>
+                  </div>
+                ))}
               </div>
               <div className="number-hole">
                 {index +1}

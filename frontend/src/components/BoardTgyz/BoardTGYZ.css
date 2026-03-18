@@ -1,8 +1,20 @@
-.seed{
-    width: 10px;
-    height: 10px;
-    background-color: black;
+.total-seeds{
+    color: gray;
 }
+.seed{
+    width: 15px;
+    height: 15px;
+    background-color: black;
+    justify-content: center;
+    
+    margin-left: 10px;
+    margin-bottom: 5px;
+    border-radius: 50%;
+}
+.seed > * {
+    visibility: hidden;
+}
+
 /* Estilos del tablero de Togyzqumalaq */
 .title{
     text-align: center;
@@ -33,7 +45,6 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    
 }
 .pitPainted{
     width: 100px;
@@ -47,6 +58,7 @@
 .pit:hover{
     border: 2px solid whitesmoke;
     transition: 0.3s;
+    cursor: pointer;
 }
 .kazan-player1{
     margin-top: 10px;

@@ -7,13 +7,15 @@ export function Begginer() {
   const [winner, setWinner] = useState(null);
 
   return (
-    <div>
+    <div className="main-container">
+      <div>
           <h1 className="title">TGYZ tablero</h1>
           <div className='board-center'>
             <BoardTGYZ winner={winner} setWinner={setWinner}/>
           </div>
-          <div>
-            <Winner playerWinner={winner}/>
+      </div>
+          <div className="">
+            {winner && <div> <Winner playerWinner={winner}/> </div>}
           </div>
     </div>
   )
