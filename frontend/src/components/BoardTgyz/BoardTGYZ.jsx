@@ -1,15 +1,15 @@
 // Creacion del tablero de Togyzqumalaq
-
 import { board } from "./board"
 import { useState } from "react"
 import './BoardTGYZ.css'
+import { BsPass } from "react-icons/bs";
 
-export function BoardTGYZ() {
+export function BoardTGYZ({winner, setWinner}) {
   // Estado del tablero 
   const [initialBoard, setBoard] = useState(board);
   // pintar hoyo
   const [lastPit, setLastPit] = useState(null)
-  
+  // turno 
   const [turn, seTurn] = useState('player1');
   
   const getPitClass = (pitPlayer, pitIndex) => {
@@ -26,9 +26,12 @@ export function BoardTGYZ() {
   
   // funcion principal de movimiento 
   const handlemove = (pit, index, player) => {
-
+    if(pit == 0)return
 
     if(player !== turn){
+      return
+    }
+    if(winner != null){
       return
     }
 
@@ -49,6 +52,7 @@ export function BoardTGYZ() {
           let seeds = pit
           let currentPLayer = player  
           let currentIndex = seeds === 1 ?realIndex: realIndex - 1
+         
           if (seeds) {
           
               while(seeds > 0) {
@@ -83,16 +87,32 @@ export function BoardTGYZ() {
                     }
                   }
               }
-                }
+            }
+             // definicion del ganador
+              if(newBoard['player1'].kazan > 81){
+                setWinner('player1')
+              }
+              if(newBoard['player2'].kazan > 81){
+                setWinner('player2')
+              }
+             // definicion del ganador por tiempos
+         
+              if(newBoard[rival].pits.reduce((acumulate, next) => acumulate + next, 0) === 0 ){
+                setWinner(rival == 'player1'? 'player2':'player1')
+                newBoard[player].kazan += newBoard[player].pits.reduce((acumulate, next) => acumulate + next, 0)
+              }
+              
           }
         return newBoard;
       });
       
     }
-
     move(pit, realIndex, player)
+    // cambio de turno 
     seTurn(player === 'player1' ? 'player2' : 'player1')
+    
     console.log(pit, realIndex, player)
+   
   }
   return (
   
@@ -124,7 +144,9 @@ export function BoardTGYZ() {
         {initialBoard['player1'].pits.map((pit, index) =>{
           return(
             <div onClick={() => handlemove(pit, index, 'player1')} className={getPitClass('player1', index)} key={index}>
+              <div className="seed">
               {pit}
+              </div>
               <div className="number-hole">
                 {index +1}
               </div>
