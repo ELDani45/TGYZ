@@ -7,7 +7,8 @@ export function BoardTGYZ({winner, setWinner}) {
   // Estado del tablero 
   const [initialBoard, setBoard] = useState(board);
   // pintar hoyo
-  const [lastPit, setLastPit] = useState(null)
+  const [lastPitPlayer1, setLastPitPlayer1] = useState(null)
+  const [lastPitPlayer2, setLastPitPlayer2] = useState(null)
   // turno 
   const [turn, seTurn] = useState('player1');
   
@@ -17,7 +18,15 @@ export function BoardTGYZ({winner, setWinner}) {
     if(initialBoard[rival].tuzdik === pitIndex) return 'pitTuzdik'
     
     // Pinta el ultimo hoyo
-    if(lastPit?.player === pitPlayer && lastPit?.index === pitIndex) return 'pitPainted'
+   
+    if(lastPitPlayer1?.player === pitPlayer && lastPitPlayer1?.index === pitIndex ){
+      return 'pitBlue'
+    }
+    if(lastPitPlayer2?.player === pitPlayer && lastPitPlayer2?.index === pitIndex){
+      return 'pitRed'
+    }
+
+    // if(lastPit?.player === pitPlayer && lastPit?.index === pitIndex) return 'pitPainted'
     
     // normal
     return 'pit'
@@ -70,7 +79,16 @@ export function BoardTGYZ({winner, setWinner}) {
                     newBoard[currentPLayer].pits[currentIndex] -= 1
                   }
                 if(seeds == 0){
-                  setLastPit({player:currentPLayer,index:currentIndex})
+                  // objeto con dos propiedades[ player : index ]
+                  if(player === 'player1'){
+                    setLastPitPlayer1({player:currentPLayer,index:currentIndex})
+                    setLastPitPlayer2(null)
+                  }else{
+                    setLastPitPlayer2({player: currentPLayer, index:currentIndex})
+                    setLastPitPlayer1(null)
+                  }
+
+
                   if(newBoard[currentPLayer].pits[currentIndex] %2==0 && player != currentPLayer){
                     newBoard[player].kazan += newBoard[currentPLayer].pits[currentIndex]
                     newBoard[currentPLayer].pits[currentIndex] = 0
@@ -87,19 +105,31 @@ export function BoardTGYZ({winner, setWinner}) {
                   }
               }
             }
-             // definicion del ganador
-              if(newBoard['player1'].kazan > 81){
+            // definicion del ganador por tiempos
+         
+            const player1Seeds = newBoard['player1'].pits.reduce((a,b)=>a+b,0)
+            const player2Seeds = newBoard['player2'].pits.reduce((a,b)=>a+b,0)
+
+            if(player1Seeds === 0 || player2Seeds === 0){
+              // sumar semillas restantes
+              newBoard['player1'].kazan += player1Seeds
+              newBoard['player2'].kazan += player2Seeds
+
+              // vaciar pits (opcional pero correcto)
+              newBoard['player1'].pits = newBoard['player1'].pits.map(() => 0)
+              newBoard['player2'].pits = newBoard['player2'].pits.map(() => 0)
+
+              // decidir ganador
+              if(newBoard['player1'].kazan === newBoard['player2'].kazan){
+                setWinner('Draw')
+              } else if(newBoard['player1'].kazan > newBoard['player2'].kazan){
                 setWinner('player1')
-              }
-              if(newBoard['player2'].kazan > 81){
+              } else {
                 setWinner('player2')
               }
-             // definicion del ganador por tiempos
-         
-              if(newBoard[rival].pits.reduce((acumulate, next) => acumulate + next, 0) === 0 ){
-                setWinner(rival == 'player1'? 'player2':'player1')
-                newBoard[player].kazan += newBoard[player].pits.reduce((acumulate, next) => acumulate + next, 0)
-              }
+            }
+
+             
               
           }
         return newBoard;
