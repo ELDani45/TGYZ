@@ -115,7 +115,7 @@ export function BoardTGYZ({winner, setWinner}) {
               newBoard['player1'].kazan += player1Seeds
               newBoard['player2'].kazan += player2Seeds
 
-              // vaciar pits (opcional pero correcto)
+              // vaciar pits 
               newBoard['player1'].pits = newBoard['player1'].pits.map(() => 0)
               newBoard['player2'].pits = newBoard['player2'].pits.map(() => 0)
 
@@ -127,10 +127,7 @@ export function BoardTGYZ({winner, setWinner}) {
               } else {
                 setWinner('player2')
               }
-            }
-
-             
-              
+            }    
           }
         return newBoard;
       });

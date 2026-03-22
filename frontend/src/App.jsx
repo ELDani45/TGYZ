@@ -13,7 +13,7 @@ function App() {
       <NavSide isOpen={isOpen} setIsOpen={setIsOpen} /> 
       
       <main className={`main-content ${isOpen ? 'pushed' : 'collapsed'}`}> 
-        <AppRoutes />
+        <AppRoutes isOpen={isOpen} />
       </main>
     </BrowserRouter>
   )
