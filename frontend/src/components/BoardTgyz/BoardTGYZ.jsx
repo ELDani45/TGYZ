@@ -1,9 +1,19 @@
 // Creacion del tablero de Togyzqumalaq
 import { board } from "./board"
+import { useRef } from "react"  
 import { useState } from "react"
 import './BoardTGYZ.css'
 
 export function BoardTGYZ({winner, setWinner}) {
+  // ultimo turno
+  const waitingCheckRef = useRef(null)
+
+  // función helper para actualizar ambos juntos
+  const updateWaitingCheck = (val) => {
+    waitingCheckRef.current = val
+    setWaitingCheck(val)
+  }
+
   // Estado del tablero 
   const [initialBoard, setBoard] = useState(board);
   // pintar hoyo
@@ -11,6 +21,7 @@ export function BoardTGYZ({winner, setWinner}) {
   const [lastPitPlayer2, setLastPitPlayer2] = useState(null)
   // turno 
   const [turn, seTurn] = useState('player1');
+  const [waitingCheck, setWaitingCheck] = useState(null)
   
   const getPitClass = (pitPlayer, pitIndex) => {
     // si es tuzdik 
@@ -53,6 +64,8 @@ export function BoardTGYZ({winner, setWinner}) {
 
     // funcion del movimiento 
     function move(pit,realIndex, player) {
+      let newWaitingCheck = null
+
       setBoard(prevBoard => {
         const newBoard = structuredClone(prevBoard);
           newBoard[player].pits[realIndex] = 0
@@ -107,31 +120,42 @@ export function BoardTGYZ({winner, setWinner}) {
             }
             // definicion del ganador por tiempos
          
-            const player1Seeds = newBoard['player1'].pits.reduce((a,b)=>a+b,0)
-            const player2Seeds = newBoard['player2'].pits.reduce((a,b)=>a+b,0)
+           if(newBoard['player1'].kazan > 81) { setWinner('player1'); return newBoard }
+           if(newBoard['player2'].kazan > 81) { setWinner('player2'); return newBoard }
 
-            if(player1Seeds === 0 || player2Seeds === 0){
-              // sumar semillas restantes
-              newBoard['player1'].kazan += player1Seeds
-              newBoard['player2'].kazan += player2Seeds
+          const rivalSeeds = newBoard[rival].pits.reduce((a, b) => a + b, 0)
+          const playerSeeds = newBoard[player].pits.reduce((a, b) => a + b, 0)
 
-              // vaciar pits 
-              newBoard['player1'].pits = newBoard['player1'].pits.map(() => 0)
-              newBoard['player2'].pits = newBoard['player2'].pits.map(() => 0)
-
-              // decidir ganador
-              if(newBoard['player1'].kazan === newBoard['player2'].kazan){
-                setWinner('Draw')
-              } else if(newBoard['player1'].kazan > newBoard['player2'].kazan){
-                setWinner('player1')
-              } else {
-                setWinner('player2')
-              }
-            }    
+          // el rival se quedó sin semillas después de mi movimiento
+          if(rivalSeeds === 0){
+            // si yo también me quedé sin semillas → termina el juego
+            if(playerSeeds === 0){
+              const p1 = newBoard['player1'].kazan
+              const p2 = newBoard['player2'].kazan
+              if(p1 === p2) setWinner('Draw')
+              else if(p1 > p2) setWinner('player1')
+              else setWinner('player2')
+            } else {
+              // el rival debe jugar primero antes de declarar ganador
+              waitingCheckRef.current = rival
+            }
           }
-        return newBoard;
-      });
-      
+
+          // si había un waitingCheck del turno anterior, ahora sí verificas
+          if(waitingCheckRef.current !== null){
+            const waitingSeeds = newBoard[waitingCheckRef.current].pits.reduce((a, b) => a + b, 0)
+            if(waitingSeeds === 0){
+              const ganador = waitingCheckRef.current === 'player1' ? 'player2' : 'player1'
+              setWinner(ganador)
+              waitingCheckRef.current = null  
+            } else {
+              waitingCheckRef.current = null
+            }
+          }
+
+          return newBoard;
+        }});
+        updateWaitingCheck(newWaitingCheck)
     }
     move(pit, realIndex, player)
     // cambio de turno 
