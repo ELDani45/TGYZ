@@ -118,11 +118,11 @@ export function BoardTGYZ({winner, setWinner}) {
                   }
               }
             }
-            // definicion del ganador por tiempos
+            // definicion del ganador 
          
            if(newBoard['player1'].kazan > 81) { setWinner('player1'); return newBoard }
            if(newBoard['player2'].kazan > 81) { setWinner('player2'); return newBoard }
-
+          // variables con el numero de semillas de los jugadores en sus hoyos 
           const rivalSeeds = newBoard[rival].pits.reduce((a, b) => a + b, 0)
           const playerSeeds = newBoard[player].pits.reduce((a, b) => a + b, 0)
 
@@ -147,6 +147,7 @@ export function BoardTGYZ({winner, setWinner}) {
             if(waitingSeeds === 0){
               const ganador = waitingCheckRef.current === 'player1' ? 'player2' : 'player1'
               setWinner(ganador)
+              newBoard[player].kazan += playerSeeds
               waitingCheckRef.current = null  
             } else {
               waitingCheckRef.current = null
@@ -165,7 +166,7 @@ export function BoardTGYZ({winner, setWinner}) {
    
   }
   return (
-  
+  // inicio de tablero
     <div className="board-game">
       {/* fila de hoyos del jugador 2 */}
       <div className='row-pits-player2'>
@@ -199,11 +200,29 @@ export function BoardTGYZ({winner, setWinner}) {
       </div>
       {/* kazan1 */}
       <div className="kazan-player1">
-        {initialBoard['player1'].kazan}
+        <div className="kazan-container" >
+          {Array.from({length:initialBoard['player1'].kazan}, (_, i) => (
+            <div className="seed-in-kazan" key={i}>
+
+            </div>
+          ))}
+        </div>
+          <div className="kazan-total-number">
+            {initialBoard['player1'].kazan}
+          </div>
       </div>
       {/* kazan2 */}
       <div className="kazan-player2">
-        {initialBoard['player2'].kazan}
+        <div className="kazan-container" >
+          {Array.from({length:initialBoard['player2'].kazan}, (_, i) => (
+            <div className="seed-in-kazan" key={i}>
+
+            </div>
+          ))}
+        </div>
+          <div className="kazan-total-number">
+            {initialBoard['player2'].kazan}
+          </div>
       </div>
       {/* fila de hoyos del jugador 1 */}
       <div className="row-pits-player1">

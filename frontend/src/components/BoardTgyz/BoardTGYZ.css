@@ -26,9 +26,37 @@
   background: radial-gradient(circle at 35% 35%, #fff, #c8a96e);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
+.seed-in-kazan {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #685d3d, #322815);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    margin-bottom: 10px;
+}
 
 .seed > * {
     visibility: hidden;
+}
+
+.kazan-container{
+    display: grid;
+    grid-template-rows: repeat(2, 12px); 
+    grid-auto-flow: column; 
+    grid-auto-columns: 12px; 
+    gap: 4px; 
+    align-items: center;
+    margin-top: 10px;
+    width: auto;
+    padding-left: 10px;
+}
+.kazan-total-number {
+  margin-left: auto;  
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding-left: 20px;   
+  color: #2c3e50;
+  margin-right: 10px;
 }
 
 /* Estilos del tablero de Togyzqumalaq */
@@ -89,12 +117,15 @@
     cursor: pointer;
 }
 .kazan-player1{
+    display: flex;
+    align-items: center;
     margin-top: 10px;
     width: 980px;
     height: 40px;
     background-color: #202020;
 }
 .kazan-player2{
+    display: flex;
     margin-top: 10px;
     width: 980px;
     height: 40px;
