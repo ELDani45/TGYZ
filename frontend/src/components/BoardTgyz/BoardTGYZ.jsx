@@ -1,10 +1,13 @@
 // Creacion del tablero de Togyzqumalaq
 import { board } from "./board"
 import { useRef } from "react"  
+import { useEffect } from "react"
 import { useState } from "react"
 import './BoardTGYZ.css'
 
-export function BoardTGYZ({winner, setWinner}) {
+export function BoardTGYZ({winner, setWinner, isOpen, setIsOpen}) {
+
+
   // ultimo turno
   const waitingCheckRef = useRef(null)
 
@@ -23,6 +26,13 @@ export function BoardTGYZ({winner, setWinner}) {
   const [turn, seTurn] = useState('player1');
   const [waitingCheck, setWaitingCheck] = useState(null)
   
+  // // cerrar el navbar si se esta jugando 
+ 
+  useEffect(() => {
+    if (isOpen) {
+      setIsOpen(false);
+    }}, [turn]); 
+
   const getPitClass = (pitPlayer, pitIndex) => {
     // si es tuzdik 
     const rival = pitPlayer === 'player1' ? 'player2' : 'player1'
@@ -36,9 +46,6 @@ export function BoardTGYZ({winner, setWinner}) {
     if(lastPitPlayer2?.player === pitPlayer && lastPitPlayer2?.index === pitIndex){
       return 'pitRed'
     }
-
-    // if(lastPit?.player === pitPlayer && lastPit?.index === pitIndex) return 'pitPainted'
-    
     // normal
     return 'pit'
   }
@@ -65,6 +72,9 @@ export function BoardTGYZ({winner, setWinner}) {
     // funcion del movimiento 
     function move(pit,realIndex, player) {
       let newWaitingCheck = null
+
+
+      
 
       setBoard(prevBoard => {
         const newBoard = structuredClone(prevBoard);

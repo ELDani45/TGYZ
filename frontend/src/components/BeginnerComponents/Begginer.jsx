@@ -27,7 +27,7 @@ export function Begginer({isOpen, setIsOpen}) {
           <h1 className="title">TGYZ tablero</h1>
         <br />
           <div className='board-center'>
-            <BoardTGYZ winner={winner} setWinner={setWinner}/>
+            <BoardTGYZ isOpen={isOpen} setIsOpen={setIsOpen} winner={winner} setWinner={setWinner}/>
             <div className="">
             {winner && <div> <Winner playerWinner={winner}/> </div>}
             </div>
