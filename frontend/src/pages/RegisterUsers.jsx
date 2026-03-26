@@ -24,7 +24,9 @@ export function RegisterUsers() {
     try {
       await createUser(data);
     } catch (error) {
-      console.log('Hay un error en el sistema', error.response?.data);
+      if(error.response && error.response.data){
+        const errors = error.response.data          
+      };
     }
   });
 
@@ -42,7 +44,7 @@ export function RegisterUsers() {
               type="text" 
               {...register('username', { required: true })}
             />
-            {errors.username && <span>El nombre de usuario es obligatorio</span>}
+            {errors.username && <span>{errors.username.message}</span>}
           </div>
 
           <div className='box-input'>
@@ -69,13 +71,14 @@ export function RegisterUsers() {
 
           <div className='box-input'>
             <label htmlFor="input-country">País de usuario</label>
-            <select 
+            <select
+              className = 'input-countries' 
               id="input-country"
               {...register('country', { required: true })}
             >
-              <option value="">Selecciona un país</option>
+              <option className='option-out' value="">Selecciona un país</option>
               {countries.map((c) => (
-                <option key={c.code} value={c.code}>
+                <option className='options-countries' key={c.code} value={c.code}>
                   {c.name}
                 </option>
               ))}

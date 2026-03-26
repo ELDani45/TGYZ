@@ -1,3 +1,4 @@
+""" Serializador para el modelo de User(usuario) """
 from rest_framework import serializers
 # este [vCountryFieldMixin ] ayuda a DRF a que los datos se pasen correctamente a formato JSON debido a que por defecto django_countries pasa un objeto complejo que DRf no sabe convertir a JSON
 from django_countries.serializers import CountryFieldMixin
