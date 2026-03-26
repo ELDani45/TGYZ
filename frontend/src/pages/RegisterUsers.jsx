@@ -1,82 +1,93 @@
 import '../components/Register.css'
 import { useForm } from "react-hook-form"
+import { useState, useEffect } from 'react'
+import { createUser } from '../Routes/api/usersRegister.api'
+import { getCountries } from '../Routes/api/usersRegister.api'
 
 export function RegisterUsers() {
-  const {register, handleSubmit, formState:{
-    errors
-  }
-  } = useForm();
+  const [countries, setCountries] = useState([]);
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const onSubmit = handleSubmit( async data => {
-    try{
-      const dataUser = FormData();
-      //       nombre del campo / data.value
-      dataUser.append('username', data.username)
-      dataUser.append('email', data.email)
-      dataUser.append('password', data.password)
-      dataUser.append('password', data.password)
+  useEffect(() => {
+    const loadCountries = async () => {
+      try {
+        const response = await getCountries(); 
+        setCountries(response.data);
+      } catch (error) {
+        console.error("Error cargado países", error);
+      }
+    };
+    loadCountries();
+  }, []);
 
-    } catch (error){
-      console.log('Hay un error en el sistema', error)
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      await createUser(data);
+    } catch (error) {
+      console.log('Hay un error en el sistema', error.response?.data);
     }
-
-
-  })
+  });
 
   return (
     <div>
       <div className='box-main-register'>
         <form onSubmit={onSubmit}>
           <h2 className='title-form'>Crear una cuenta</h2>
-          {/* Inicio input nombre de usuario */}
-          <div className='box-input' >
-          <label htmlFor="input-username">Nombre de usuario</label>
-          <input 
-          placeholder='nombre de usuario'
-          id="input-username"
-          type="text" 
-          {...register('username', {required:true})}
-          />
-          {errors.username && <span>El nombre de usuario es un campo obligatorio </span>}
-          </div >
-          {/* Inicio input email de usuario */}
+
           <div className='box-input'>
-            <label htmlFor="input-email">Correo electroníco</label>
-            <input
-            placeholder='example@gmail.com'
-            id="input-email" 
-            type="email"
-            {...register('email', {required:true})} 
+            <label htmlFor="input-username">Nombre de usuario</label>
+            <input 
+              placeholder='nombre de usuario'
+              id="input-username"
+              type="text" 
+              {...register('username', { required: true })}
             />
-            {errors.email && <span>El correo es un campo requierido </span>}
-          </div>
-          {/* Inicio input email de usuario */}
-          <div className='box-input'>
-            <label htmlFor="input-pasword">Contraseña</label>
-            <input
-            id="input-pasword" 
-            placeholder='*******'
-            type="password" 
-            {...register('password', {required:true})}
-            />
-            {errors.password && <span>Este campo es requerido</span>}
-          </div>
-          {/* Inicio input País de usuario */}
-          <div className='box-input'>
-            <label htmlFor="input-country">País de usuario</label>
-            <input type=""
-            placeholder='Colombia'
-            />
+            {errors.username && <span>El nombre de usuario es obligatorio</span>}
           </div>
 
-          <button className='boton-save'>
+          <div className='box-input'>
+            <label htmlFor="input-email">Correo electrónico</label>
+            <input
+              placeholder='example@gmail.com'
+              id="input-email" 
+              type="email"
+              {...register('email', { required: true })} 
+            />
+            {errors.email && <span>El correo es requerido</span>}
+          </div>
+
+          <div className='box-input'>
+            <label htmlFor="input-password">Contraseña</label>
+            <input
+              id="input-password" 
+              placeholder='*******'
+              type="password" 
+              {...register('password', { required: true })}
+            />
+            {errors.password && <span>La contraseña es requerida</span>}
+          </div>
+
+          <div className='box-input'>
+            <label htmlFor="input-country">País de usuario</label>
+            <select 
+              id="input-country"
+              {...register('country', { required: true })}
+            >
+              <option value="">Selecciona un país</option>
+              {countries.map((c) => (
+                <option key={c.code} value={c.code}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+            {errors.country && <span>Debes seleccionar un país</span>}
+          </div>
+
+          <button className='boton-save' type="submit">
             Guardar
           </button>
         </form>
-        {/* final del contenedor principal de register */}
       </div>
-
     </div>
   )
 }
-

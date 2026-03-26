@@ -1,10 +1,7 @@
-from django.urls import path, include
-from rest_framework import routers
-from . import views
-
-router = routers.DefaultRouter()
-router.register(r'userRegister', views.UserRegisterView, 'userRegister')
+from django.urls import path
+from .views import UserRegisterView, get_countries
 
 urlpatterns = [
-    path('api/v1/', include(router.urls))
+    path('register/', UserRegisterView.as_view(), name='user-register'),
+    path('countries/', get_countries, name='get-countries'),
 ]
