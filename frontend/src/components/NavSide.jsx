@@ -17,16 +17,16 @@ export function NavSide({isOpen, setIsOpen}) {
         <h2 className={`logo ${isOpen? 'no-siglas':'siglas'}`}>{text}</h2>
 
         <ul onClick={(e) => e.stopPropagation()}>
-            <div className='box-link'>
-              <Link className={`${isOpen? 'link-navegation':'link-navegation-small'}`} to={'/'} >
-              <div onClick={() => navigation('/')} className="nav-item-content">
+            <div onClick={() => navigation('/')} className='box-link'>
+              <Link className={`${isOpen? 'link-navegation':'link-navegation-small'}`} >
+              <div className="nav-item-content">
                 <GoHome className="nav-icon" />
                 <span className="nav-label">Inicio</span>
               </div>
               </Link>
             </div>
             <div className='box-link'>
-              <Link className={`${isOpen? 'link-navegation':'link-navegation-small'}`} to={'/'} >
+              <Link className={`${isOpen? 'link-navegation':'link-navegation-small'}`} >
               <div className="nav-item-content">
                 <HiFlag className="nav-icon" />    
                 <span className="nav-label">Nosotros</span>
@@ -34,7 +34,7 @@ export function NavSide({isOpen, setIsOpen}) {
               </Link>
             </div>
             <div className='box-link'>
-              <Link className={`${isOpen? 'link-navegation':'link-navegation-small'}`} to={'/'} >
+              <Link className={`${isOpen? 'link-navegation':'link-navegation-small'}`} >
               <div className="nav-item-content">
                 <FaPuzzlePiece  className="nav-icon" />
                 <span className="nav-label">Ejercisios</span>

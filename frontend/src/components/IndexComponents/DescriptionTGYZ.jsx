@@ -13,7 +13,7 @@ export function DescriptionTGYZ() {
         
         <div className="container-buttoms">
           <div>
-            <button className="boton-login">
+            <button onClick={() => navigation('/sign in')} className="boton-login">
               iniciar sesion
             </button>
           </div>
