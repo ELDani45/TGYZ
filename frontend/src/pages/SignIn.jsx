@@ -1,11 +1,15 @@
 import styles from '../components/SignInusers/SignIn.module.css'
 import { useForm } from 'react-hook-form'
+import { signin } from '../api/usersSignIn.api'
+import { useNavigate } from 'react-router-dom'
 
 export default function SignIn() {
   const {register, handleSubmit, formState:{errors}} = useForm()
+  const navigation = useNavigate()
 
-  const submit = handleSubmit( (data) => {
-    console.log(data)
+  const submit = handleSubmit(async (data) => {
+    await signin(data)
+    navigation('/')
 
   } )
   return (
