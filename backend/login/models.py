@@ -6,10 +6,12 @@ from django_countries.fields import CountryField
 
 
 class User(AbstractUser):
+    """ modelo de usuario """
     country = CountryField(blank_label='(seleccionar país)')
 
 
 class Profile(models.Model):
+    """ modelo de perfil de usuario """
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='profile')
     biography = models.TextField(max_length=200, blank=True)
@@ -24,6 +26,6 @@ class Profile(models.Model):
 
 @receiver(post_save, sender=User)
 def manage_user_profile(instance, created, **kwargs):
-    """Create a Profile instance when a new User is created."""
+    """Crea un perifl cuando la instancia User se crea ."""
     if created:
         Profile.objects.create(user=instance)
