@@ -3,10 +3,12 @@ import { board } from "./board"
 import { useRef } from "react"  
 import { useEffect } from "react"
 import { useState } from "react"
+import MovmentsBoard from "../MovmentsBoard"
 import './BoardTGYZ.css'
 
 export function BoardTGYZ({winner, setWinner, isOpen, setIsOpen}) {
-
+  // envio de movimientos a MovmentsBoard 
+  const [movment, setNewMovment] = useState({}) 
 
   // ultimo turno
   const waitingCheckRef = useRef(null)
@@ -52,6 +54,7 @@ export function BoardTGYZ({winner, setWinner, isOpen, setIsOpen}) {
   
   // funcion principal de movimiento 
   const handlemove = (pit, index, player) => {
+    // restriccion de movimientos
     if(pit == 0)return
 
     if(player !== turn){
@@ -65,6 +68,7 @@ export function BoardTGYZ({winner, setWinner, isOpen, setIsOpen}) {
     // Inversion del inidice si el jugador es el player2
     if(player == 'player2'){
       realIndex = (initialBoard['player2'].pits.length - 1) - index
+      
     }
     const rival = player ==='player1'? 'player2':'player1'
     if(initialBoard[rival].tuzdik === realIndex)return
@@ -86,7 +90,7 @@ export function BoardTGYZ({winner, setWinner, isOpen, setIsOpen}) {
          
           if (seeds) {
           
-              while(seeds > 0) {
+            while(seeds > 0) {
                 seeds -= 1
                 currentIndex ++
                 // esto cambia de lado cuando la ultima semilla llega al ultimo hoyo y todavia faltan semillas por repartir
@@ -109,14 +113,15 @@ export function BoardTGYZ({winner, setWinner, isOpen, setIsOpen}) {
                   }else{
                     setLastPitPlayer2({player: currentPLayer, index:currentIndex})
                     setLastPitPlayer1(null)
+
                   }
 
-
+                  // captura si es par 
                   if(newBoard[currentPLayer].pits[currentIndex] %2==0 && player != currentPLayer){
                     newBoard[player].kazan += newBoard[currentPLayer].pits[currentIndex]
                     newBoard[currentPLayer].pits[currentIndex] = 0
                   }
-
+                  // colocacion del tuzdik
                   if(newBoard[currentPLayer].pits[currentIndex] === 3 && player != currentPLayer){
                     if(
                       newBoard[player].tuzdik == null && currentIndex != 8 && newBoard[currentPLayer].tuzdik != currentIndex
@@ -126,6 +131,14 @@ export function BoardTGYZ({winner, setWinner, isOpen, setIsOpen}) {
                       newBoard[currentPLayer].pits[currentIndex] = 0
                     }
                   }
+                  // envio movimiento
+                  if(player == 'player1'){
+                    setNewMovment({jugador: player, hoyoInicial:realIndex + 1, hoyoFinal:currentIndex + 1})
+                  }
+                  if(player == 'player2'){
+                    setNewMovment({jugador: player, hoyoInicial:realIndex + 1, hoyoFinal:currentIndex + 1})
+                  }
+
               }
             }
             // definicion del ganador 
@@ -151,7 +164,7 @@ export function BoardTGYZ({winner, setWinner, isOpen, setIsOpen}) {
             }
           }
 
-          // si había un waitingCheck del turno anterior, ahora sí verificas
+          // si había un waitingCheck del turno anterior, ahora si se verifica
           if(waitingCheckRef.current !== null){
             const waitingSeeds = newBoard[waitingCheckRef.current].pits.reduce((a, b) => a + b, 0)
             if(waitingSeeds === 0){
@@ -172,7 +185,7 @@ export function BoardTGYZ({winner, setWinner, isOpen, setIsOpen}) {
     // cambio de turno 
     seTurn(player === 'player1' ? 'player2' : 'player1')
     
-    console.log(pit, realIndex, player)
+    // console.log(pit, realIndex +1 , player)
    
   }
   return (
@@ -261,6 +274,7 @@ export function BoardTGYZ({winner, setWinner, isOpen, setIsOpen}) {
           )
         })}
       </div>
+      <MovmentsBoard movment={movment}  /> 
     </div>
   )
 }

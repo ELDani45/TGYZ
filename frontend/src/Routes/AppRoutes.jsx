@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import { Index } from '../pages/Index'
 import { RegisterUsers } from '../pages/RegisterUsers'
 import { Begginer } from '../components/BeginnerComponents/Begginer'
+import ExercisesTogyz from '../pages/ExercisesTogyz'
 import SignIn from '../pages/SignIn'
 
 export const AppRoutes = ({isOpen, setIsOpen}) => {
@@ -12,6 +13,7 @@ export const AppRoutes = ({isOpen, setIsOpen}) => {
       <Route path='/register' element={<RegisterUsers />} />
       <Route path='/beginner' element={<Begginer isOpen={isOpen} setIsOpen={setIsOpen} />} />
       <Route path='/sign in' element={<SignIn isOpen={isOpen} setIsOpen={setIsOpen} />} />
+      <Route path='/movments' element={<ExercisesTogyz />} />
     </Routes>
   )
 }

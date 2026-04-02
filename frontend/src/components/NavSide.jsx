@@ -5,7 +5,6 @@ import { GoHome } from "react-icons/go";
 import { Link } from 'react-router-dom'
 import './NavStyle.css'
 
-
 export function NavSide({isOpen, setIsOpen}) {
     const navigation = useNavigate();
     const toggleMenu = () => setIsOpen(!isOpen)
@@ -17,6 +16,7 @@ export function NavSide({isOpen, setIsOpen}) {
         <h2 className={`logo ${isOpen? 'no-siglas':'siglas'}`}>{text}</h2>
 
         <ul onClick={(e) => e.stopPropagation()}>
+
             <div onClick={() => navigation('/')} className='box-link'>
               <Link className={`${isOpen? 'link-navegation':'link-navegation-small'}`} >
               <div className="nav-item-content">
@@ -25,6 +25,7 @@ export function NavSide({isOpen, setIsOpen}) {
               </div>
               </Link>
             </div>
+
             <div className='box-link'>
               <Link className={`${isOpen? 'link-navegation':'link-navegation-small'}`} >
               <div className="nav-item-content">
@@ -33,7 +34,8 @@ export function NavSide({isOpen, setIsOpen}) {
               </div>
               </Link>
             </div>
-            <div className='box-link'>
+
+            <div onClick={() => navigation('/movments')} className='box-link'>
               <Link className={`${isOpen? 'link-navegation':'link-navegation-small'}`} >
               <div className="nav-item-content">
                 <FaPuzzlePiece  className="nav-icon" />
