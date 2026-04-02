@@ -3,6 +3,7 @@
     font-size: 20px;
     text-align: center;
     font-weight: bold;
+    color: white;
 }
 .input-register{
     height: 45px;
@@ -13,7 +14,7 @@
     font-weight: bold;
     border: 2px solid #202020;
     background-color: #0B0B0B;
-    color: whitesmoke;
+    color: rgb(154, 29, 29);
 }
 .form-register{
     background-color: #0F0F0F;
@@ -50,6 +51,9 @@
 .title-form{
     text-align: center;
     font-size: 30px;
+    color: white;
+    font-family: sans-serif;
+    margin-bottom: 10px;
 }
 .options-countries{
     background-color: #0B0B0B;

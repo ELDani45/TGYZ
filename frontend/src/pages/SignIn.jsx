@@ -13,13 +13,15 @@ export default function SignIn() {
 
   } )
   return (
-    <div>
-        <div>
+    <div className={styles['main-container']}>
             <form onSubmit={submit} className={styles['form-signIn']} >
+              <h2 className={styles['singin-text']}>Iniciar sesión</h2>
+
               <section>
                   {/* {input de nombre de usuario} */}
-                  <label htmlFor="input-username">Nombre de usuario</label> <br />
+                  <label className={styles['labels']} htmlFor="input-username">Nombre de usuario</label> 
                   <input 
+                  className={styles['inputs']}
                   id='input-username' 
                   type="text"
                   {...register("username", {required:true})}
@@ -28,8 +30,9 @@ export default function SignIn() {
 
               <section>
                   {/* {input de correo electronico de usuario} */}
-                  <label htmlFor="input-email">Correo electroníco</label> <br />
+                  <label className={styles['labels']} htmlFor="input-email">Correo electroníco</label> 
                   <input
+                  className={styles['inputs']}
                   id='input-email' 
                   type="email"
                   {...register("email", {required:true})}
@@ -38,19 +41,19 @@ export default function SignIn() {
 
               <section>
                   {/* {input contraseña del username} */}
-                  <label htmlFor="input-password">Contraseña</label> <br />
+                  <label className={styles['labels']} htmlFor="input-password">Contraseña</label>
                   <input 
+                  className={styles['inputs']}
                   id='input-password'
                   type="password"
                   {...register("password", {required:true})} 
                   />
               </section>
 
-              <button type='submit'>
+              <button type='submit' className={styles['boton-signin']}>
                 Iniciar sesion
               </button>
             </form>
-        </div>
     </div>
   )
 }
